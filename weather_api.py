@@ -7,11 +7,11 @@ api_key = file.read()
 file.close
 
 # base_url variable to store url
-base_url = "https://api.openweathermap.org/data/2.5/onecall?lat=32.7760&lon=-177.0713&exclude=current,minutely,alerts,daily"
+base_url = "https://api.openweathermap.org/data/2.5/onecall?lat=32.7760&lon=-177.0713&exclude=current,minutely,alerts,daily&appid="
 
 # complete_url variable to store
 # complete url address
-complete_url = base_url + "&appid=" + api_key
+complete_url = base_url + api_key
 
 # get method of requests module
 # return response object
@@ -24,8 +24,8 @@ x = response.json()     # This is a dictionary
 x = x['hourly']
 
 
-for each in range(len(x)):
-    print(  datetime.datetime.fromtimestamp(x[each]['dt']) , "  ", x[each]['clouds'], "%", sep = '' )
+for each in range(0, 24):
+    print(  datetime.datetime.fromtimestamp(x[each]['dt']) , "    Cloudiness % = ", x[each]['clouds'], "%", sep = '' )
 
 
 
