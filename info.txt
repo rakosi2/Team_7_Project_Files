@@ -12,6 +12,9 @@ http://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_REN_FCST&market_run_id=D
 
 
 
+Open Weather API
+https://api.openweathermap.org/data/2.5/onecall?lat=32.7760&lon=-177.0713&appid=
+
 
 
 

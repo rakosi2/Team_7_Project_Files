@@ -1,15 +1,31 @@
 import requests
-import time
-import shutil
+import json
+import datetime
 
-response = requests.get("http://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&market_run_id=DAM&startdatetime=20160415T07:00-0000&enddatetime=20160416T07:00-0000&version=1")
+file = open('weather_Api_Key.txt', 'r')
+api_key = file.read()
+file.close
+
+# base_url variable to store url
+base_url = "https://api.openweathermap.org/data/2.5/onecall?lat=32.7760&lon=-177.0713&exclude=current,minutely,alerts,daily"
+
+# complete_url variable to store
+# complete url address
+complete_url = base_url + "&appid=" + api_key
+
+# get method of requests module
+# return response object
+response = requests.get(complete_url)
+
+# json method of response object
+# convert json format data into
+# python format data
+x = response.json()     # This is a dictionary
+x = x['hourly']
 
 
-print('')
-print('The response code is:', response.status_code)
+for each in range(len(x)):
+    print(  datetime.datetime.fromtimestamp(x[each]['dt']) , "  ", x[each]['clouds'], "%", sep = '' )
 
 
-
-
-print('\nThis is the end of the program')
 
