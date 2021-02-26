@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-./caiso_api.py
+clear; ./caiso_api.py

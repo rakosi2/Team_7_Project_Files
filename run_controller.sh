@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-./controller.py &
+clear; ./controller.py &
