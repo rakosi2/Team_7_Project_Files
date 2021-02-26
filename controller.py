@@ -10,8 +10,6 @@ GPIO.setup(37,GPIO.OUT)
 GPIO.setup(36,GPIO.OUT)
 
 
-
-
 while True:
     GPIO.output(29,GPIO.HIGH)
     time.sleep(0.01)
