@@ -4,7 +4,7 @@ import time
 import pigpio
 
 pi = pigpio.pi()
-pi.hardware_PWM(12, 800, 10000)   # <---- Research this more to understand better
+pi.hardware_PWM(12, 800, 50000)   # <---- Research this more to understand better
 
 
 GPIO.setmode(GPIO.BOARD)
