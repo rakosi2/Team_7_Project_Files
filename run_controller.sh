@@ -1,7 +1,8 @@
 #!/usr/bin/bash
+
+demon=`ps -e -o comm | grep pigpiod`
 clear;
-if [ `ps -e -o comm | grep pigpiod` == "pigpiod" ]
-then
+if [ "$demon" != "pigpiod" ]; then
     sudo pigpiod;
 fi
 clear;
