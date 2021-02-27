@@ -1,2 +1,8 @@
 #!/usr/bin/bash
-clear; ./controller.py &
+clear;
+if [ `ps -e -o comm | grep pigpiod` == "pigpiod" ]
+then
+    sudo pigpiod;
+fi
+clear;
+./controller.py &
