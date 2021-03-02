@@ -24,6 +24,10 @@ class State(Enum):
 class Controller:
     def __init__(self):
         self.current_state = State.initial_state
+    
+    def get_next_state:
+        pass
+    
 
 controller = Controller()
 
