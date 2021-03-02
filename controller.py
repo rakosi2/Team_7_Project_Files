@@ -4,15 +4,16 @@ import time
 import pigpio
 
 pi = pigpio.pi()
-pi.hardware_PWM(12, 800, 500000)        # (off)0 to (fully on)1000000
+pi.hardware_PWM(12, 8000, 10000)  # 10% duty cycle = 10000 (off)0 to (fully on)1000000
+
+GPIO.setmode(GPIO.BOARD)        # 
+GPIO.setwarnings(False)         # 
+GPIO.setup(29,GPIO.OUT)         # 
+GPIO.setup(31,GPIO.OUT)         # 
+GPIO.setup(37,GPIO.OUT)         # 
+GPIO.setup(36,GPIO.OUT)         # 
 
 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setwarnings(False)
-GPIO.setup(29,GPIO.OUT)
-GPIO.setup(31,GPIO.OUT)
-GPIO.setup(37,GPIO.OUT)
-GPIO.setup(36,GPIO.OUT)
 
 while True:
     GPIO.output(29,GPIO.HIGH)
