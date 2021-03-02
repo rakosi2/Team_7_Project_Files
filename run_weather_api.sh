@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-clear; ./weather_api.py
+./weather_api.py

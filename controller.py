@@ -15,7 +15,6 @@ GPIO.setup(37,GPIO.OUT)         # Physical pins 37 set to output
 GPIO.setup(36,GPIO.OUT)         # Physical pins 36 set to output
 
 
-
 class State(Enum):
     initial_state = auto()
     state_2 = auto()

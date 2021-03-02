@@ -14,9 +14,11 @@ base_url = "https://api.openweathermap.org/data/2.5/onecall?lat=32.7760&lon=-177
 # complete url address
 complete_url = base_url + api_key
 
+
 # get method of requests module
 # return response object
 response = requests.get(complete_url)
+
 
 # json method of response object
 # convert json format data into
@@ -25,8 +27,7 @@ x = response.json()     # This is a dictionary
 x = x['hourly']
 
 
-for each in range(0, 24):
-    print(  datetime.datetime.fromtimestamp(x[each]['dt']) , "    Cloudiness % = ", x[each]['clouds'], "%", sep = '' )
-
-
+if response.status_code == 200:
+    for each in range(0, 24):
+        print(  datetime.datetime.fromtimestamp(x[each]['dt']) , "    Cloudiness % = ", x[each]['clouds'], "%", sep = '' )
 
