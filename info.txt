@@ -17,6 +17,7 @@ https://api.openweathermap.org/data/2.5/onecall?lat=32.7760&lon=-177.0713&appid=
 
 
 
+http://oasis.caiso.com/oasisapi/SingleZip?queryname=PRC_LMP&startdatetime=20210314T07:00-0000&enddatetime=20210315T07:00-0000&market_run_id=DAM&version=1&node=STREAMVW_6_N001
 
 
 
