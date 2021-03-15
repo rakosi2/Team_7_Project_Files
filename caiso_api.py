@@ -4,6 +4,9 @@ import time
 import shutil
 import json
 import datetime
+import io
+import zipfile
+import os
 
 todays_date = datetime.datetime.now()
 yesterdays_date = todays_date - datetime.timedelta(days = 1)
@@ -31,5 +34,15 @@ complete_url = base_url + first_url_arg + second_url_arg + url_tail
 
 response = requests.get(complete_url)
 
-
+if response.status_code == 200:
+    z = zipfile.ZipFile( io.BytesIO(response.content) )
+    filename = z.namelist()[0]
+    z.extractall("./")
+    f = open(filename, 'r')
+    file_contents = f.read()
+    f.close()
+    
+    
+if os.path.exists(filename):
+    os.remove(filename)
 

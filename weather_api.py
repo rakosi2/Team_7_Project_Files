@@ -23,11 +23,11 @@ response = requests.get(complete_url)
 # json method of response object
 # convert json format data into
 # python format data
-x = response.json()     # This is a dictionary
-x = x['hourly']
-
-
 if response.status_code == 200:
-    for each in range(0, 24):
-        print(  datetime.datetime.fromtimestamp(x[each]['dt']) , "    Cloudiness % = ", x[each]['clouds'], "%", sep = '' )
+    x = response.json()     # This is a dictionary
+    x = x['hourly']
+
+
+for each in range(0, 24):
+    print(  datetime.datetime.fromtimestamp(x[each]['dt']) , "    Cloudiness % = ", x[each]['clouds'], "%", sep = '' )
 
