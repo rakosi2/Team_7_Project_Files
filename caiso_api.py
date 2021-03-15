@@ -7,6 +7,7 @@ import datetime
 import io
 import zipfile
 import os
+import xml.etree.ElementTree as ET
 
 todays_date = datetime.datetime.now()
 yesterdays_date = todays_date - datetime.timedelta(days = 1)
@@ -38,9 +39,8 @@ if response.status_code == 200:
     z = zipfile.ZipFile( io.BytesIO(response.content) )
     filename = z.namelist()[0]
     z.extractall("./")
-    f = open(filename, 'r')
-    file_contents = f.read()
-    f.close()
+    tree = ET.parse(filename)
+    root = tree.getroot()
     
     
 if os.path.exists(filename):
