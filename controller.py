@@ -13,10 +13,11 @@ PIN1 = 29                       # These should remain constant
 PIN2 = 31                       # These should remain constant
 PIN3 = 36                       # These should remain constant
 PIN4 = 37                       # These should remain constant
-GPIO.setup(29,GPIO.OUT)         # Physical pins 29 set as output
-GPIO.setup(31,GPIO.OUT)         # Physical pins 31 set to output
-GPIO.setup(36,GPIO.OUT)         # Physical pins 36 set to output
-GPIO.setup(37,GPIO.OUT)         # Physical pins 37 set to output
+GPIO.setup(PIN1,GPIO.OUT)         # Physical pins 29 set as output
+GPIO.setup(PIN2,GPIO.OUT)         # Physical pins 31 set to output
+GPIO.setup(PIN3,GPIO.OUT)         # Physical pins 36 set to output
+GPIO.setup(PIN4,GPIO.OUT)         # Physical pins 37 set to output
+
 
 @unique
 class State(Enum):
@@ -55,7 +56,7 @@ class Controller:
             GPIO.output(PIN3,GPIO.HIGH)     # ON
             GPIO.output(PIN4,GPIO.LOW)      # OFF
         elif self.current_state == State.state_5:
-            GPIO.output(PIN1,GPIO.LOW)      # OFF
+            GPIO.output(PIN1,GPIO.HIGH)     # ON
             GPIO.output(PIN2,GPIO.HIGH)     # ON
             GPIO.output(PIN3,GPIO.HIGH)     # ON
         elif self.current_state == State.state_6:
@@ -74,20 +75,24 @@ class Controller:
             GPIO.output(PIN3,GPIO.HIGH)     # ON
             GPIO.output(PIN4,GPIO.LOW)      # OFF
     
-
-    
     def update_state(self, next_state):
         self.current_state = next_state
         self.switch_states()
-
+    
+    def print_status(self):
+        print(self.current_state.name)
+        print("Pin 1: On" if GPIO.input(PIN1) else "Pin 1: Off")
+        print("Pin 2: On" if GPIO.input(PIN2) else "Pin 2: Off")
+        print("Pin 3: On" if GPIO.input(PIN3) else "Pin 3: Off")
+        print("Pin 4: On" if GPIO.input(PIN4) else "Pin 4: Off")
 
 
 controller = Controller()       # Create the controller object from Controller class
 
 while True:
     for each_state in State:
-        time.sleep(6)
         controller.update_state(each_state)
-        
-        
+        controller.print_status()
+        time.sleep(8)
+
 
