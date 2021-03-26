@@ -40,8 +40,6 @@ if response.status_code == 200:
     filename = z.namelist()[0]
     z.extractall("./")
     dom = ElementTree.parse(filename)
-
-
     root = dom.getroot()
     root = root[1][0][1]
     values = [[]]
@@ -51,21 +49,16 @@ if response.status_code == 200:
         for child2 in child:
             string = child2.tag
             if(string[45:] == "INTERVAL_NUM"):
-                print(string[45:], " == ", child2.text)
                 sub_string.append(child2.text)
             elif(string[45:] == "INTERVAL_START_GMT"):
-                print(string[45:], " == ", child2.text)
                 sub_string.append(child2.text)
             elif(string[45:] == "INTERVAL_END_GMT"):
-                print(string[45:], " == ", child2.text)
                 sub_string.append(child2.text)
             elif(string[45:] == "VALUE"):
-                print(string[45:], " == ", child2.text)
                 sub_string.append(child2.text)
-        print("")
         values.append(sub_string)
     
-
+    values = sorted(values)
     for i in range(len(values)):
         for j in range(len(values[i])):
             print(values[i][j])
