@@ -87,12 +87,3 @@ class Controller:
         print("Pin 4: On" if GPIO.input(PIN4) else "Pin 4: Off")
 
 
-controller = Controller()       # Create the controller object from Controller class
-
-while True:
-    for each_state in State:
-        controller.update_state(each_state)
-        controller.print_status()
-        time.sleep(8)
-
-

@@ -1,3 +1,3 @@
 #!/usr/bin/bash
 clear;
-pkill controller.py
+pkill test.py

@@ -6,4 +6,4 @@ if [ "$demon" != "pigpiod" ]; then
     sudo pigpiod;
 fi
 clear;
-./controller.py &
+./test.py &
