@@ -7,7 +7,7 @@ import datetime
 import io
 import zipfile
 import os
-import xml.etree.ElementTree as ET
+from xml.etree import ElementTree
 
 todays_date = datetime.datetime.now()
 yesterdays_date = todays_date - datetime.timedelta(days = 1)
@@ -39,10 +39,32 @@ if response.status_code == 200:
     z = zipfile.ZipFile( io.BytesIO(response.content) )
     filename = z.namelist()[0]
     z.extractall("./")
-    tree = ET.parse(filename)
-    root = tree.getroot()
-    
-    
-if os.path.exists(filename):
-    os.remove(filename)
+
+    dom = ElementTree.parse(filename)
+    root = dom.getroot()
+    # print(root[1])
+    # print(root[1][0])
+    # print(root[1][0][1])
+    # print(root[1][0][1][2])
+
+    root = root[1][0][1]
+    for child in root:
+        string = child.tag
+        print(string[45:])
+        for child2 in child:
+            string = child2.tag
+            print("   ",string[45:], " :: ", child2.text)
+
+
+
+    # root = root[1][0][1]
+
+    # for child in root:
+    #     print(child)
+    #     for child2 in child:
+    #         print(child2.attrib, child2.values, child2.text)
+
+
+if os.path.exists(filename):        # Delete the file just downloaded
+    os.remove(filename)             # Delete any file just downloaded
 
