@@ -39,32 +39,39 @@ if response.status_code == 200:
     z = zipfile.ZipFile( io.BytesIO(response.content) )
     filename = z.namelist()[0]
     z.extractall("./")
-
     dom = ElementTree.parse(filename)
-    root = dom.getroot()
-    # print(root[1])
-    # print(root[1][0])
-    # print(root[1][0][1])
-    # print(root[1][0][1][2])
 
+
+    root = dom.getroot()
     root = root[1][0][1]
+    values = [[]]
     for child in root:
+        sub_string = []
         string = child.tag
-        print(string[45:])
         for child2 in child:
             string = child2.tag
-            print("   ",string[45:], " :: ", child2.text)
+            if(string[45:] == "INTERVAL_NUM"):
+                print(string[45:], " == ", child2.text)
+                sub_string.append(child2.text)
+            elif(string[45:] == "INTERVAL_START_GMT"):
+                print(string[45:], " == ", child2.text)
+                sub_string.append(child2.text)
+            elif(string[45:] == "INTERVAL_END_GMT"):
+                print(string[45:], " == ", child2.text)
+                sub_string.append(child2.text)
+            elif(string[45:] == "VALUE"):
+                print(string[45:], " == ", child2.text)
+                sub_string.append(child2.text)
+        print("")
+        values.append(sub_string)
+    
 
-
-
-    # root = root[1][0][1]
-
-    # for child in root:
-    #     print(child)
-    #     for child2 in child:
-    #         print(child2.attrib, child2.values, child2.text)
-
+    for i in range(len(values)):
+        for j in range(len(values[i])):
+            print(values[i][j])
+        print()
+    
 
 if os.path.exists(filename):        # Delete the file just downloaded
-    os.remove(filename)             # Delete any file just downloaded
+    os.remove(filename)             # Delete the file just downloaded
 
