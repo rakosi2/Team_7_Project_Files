@@ -87,3 +87,5 @@ class Controller:
         print("Pin 4: On" if GPIO.input(PIN4) else "Pin 4: Off")
 
 
+
+

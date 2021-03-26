@@ -1,5 +1,4 @@
 #!/usr/bin/bash
-
 demon=`ps -e -o comm | grep pigpiod`
 clear;
 if [ "$demon" != "pigpiod" ]; then
