@@ -70,7 +70,7 @@ if response.status_code == 200:
     file.close
 
     # base_url variable to store url
-    base_url = "https://api.openweathermap.org/data/2.5/onecall?lat=32.7760&lon=-177.0713&exclude=current,minutely,alerts,daily&appid="
+    base_url = "https://api.openweathermap.org/data/2.5/onecall?lat=32.7157&lon=-117.1611&exclude=current,minutely,alerts,daily&appid="
 
     # complete_url variable to store
     # complete url address
