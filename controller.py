@@ -75,9 +75,9 @@ class Controller:
             GPIO.output(PIN3,GPIO.HIGH)     # ON
             GPIO.output(PIN4,GPIO.LOW)      # OFF
     
-    def update_state(self, next_state):
-        self.current_state = next_state
+    def update_state(self):
         self.switch_states()
+        
     
     def print_status(self):
         print(self.current_state.name)
