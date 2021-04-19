@@ -6,6 +6,5 @@ controller = Controller()       # Create the controller object from Controller c
 while True:
     for each_state in State:
         controller.update_state(each_state)
-        controller.print_status()
-        time.sleep(8)
-
+        # controller.print_status()
+        time.sleep(1)

@@ -78,6 +78,7 @@ class Controller:
     def update_state(self, next_state):
         self.current_state = next_state
         self.switch_states()
+        
     
     def print_status(self):
         print(self.current_state.name)
