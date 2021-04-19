@@ -1,0 +1,8 @@
+{http://www.caiso.com/soa/OASISReport_v1.xsd}VALUE
+
+{http://www.caiso.com/soa/OASISReport_v1.xsd}OPR_DATE
+{http://www.caiso.com/soa/OASISReport_v1.xsd}INTERVAL_NUM
+{http://www.caiso.com/soa/OASISReport_v1.xsd}INTERVAL_START_GMT
+{http://www.caiso.com/soa/OASISReport_v1.xsd}INTERVAL_END_GMT
+
+{http://www.caiso.com/soa/OASISReport_v1.xsd}REPORT_DATA
