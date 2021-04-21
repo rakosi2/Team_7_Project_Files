@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET #importing the parsing tool ElementTree as the variable ET
 from array import *
-import requests, zipfile, io, os, glob
+import requests, zipfile, io, os, glob, pprint
 from datetime import datetime, timedelta
 
 #####################################################################################################################################
@@ -39,13 +39,38 @@ list_of_files = glob.glob(path + '*xml') #from our list of files in the path, on
 latest_file = max(list_of_files, key=os.path.getctime) #pull that latest .xml file we downloaded
 
 #####################################################################################################################################
-#####################################3##### Pulling the correct data from the .xml file #############################################
+######################################## Pulling data from the weather API ##########################################################
+#####################################################################################################################################
+
+s = requests.get('https://api.weather.gov/gridpoints/SGX/59,15/forecast')
+
+clouds = "Mostly Cloudy"
+rain = "Chance Rain Showers"
+
+weather_day = []
+weather_type = []
+
+x = 0
+
+while x < 14:
+
+    day = s.json()['properties']['periods'][x]['name']
+    expected = s.json()['properties']['periods'][x]['shortForecast']
+    weather_day.append(day)
+    weather_type.append(expected)
+    #print()
+    x += 1
+
+zipped = list(zip(weather_day, weather_type))
+
+#####################################################################################################################################
+########################################### Pulling the correct data from the CAISO .xml file #######################################
 #####################################################################################################################################
 
 tree = ET.parse(latest_file) #pulling the .xml file and storing it in 'tree'
 root = tree.getroot() #need this to access everything in the XML file
 
-temp_time = [] #temp array for the time aka the itnerval hour
+temp_time = [] #temp array for the time aka the interval hour
 time = [] #new arary for the time with only the time of the LMP
 
 temp_cost = [] #temp array for the cost aka the value
@@ -62,10 +87,11 @@ for elm in root.findall(".//{http://www.caiso.com/soa/OASISReport_v1.xsd}REPORT_
       temp_time.append(hour) #put hour into list
       temp_cost.append(price) #put price into list
 
+
 os.remove(latest_file) #delete the .xml file because we got the data from it already
 
 #####################################################################################################################################
-############################################ Sorting the pulled data ################################################################
+############################################ Sorting the pulled data from CAISO #####################################################
 #####################################################################################################################################
 
 time = [int(x) for x in temp_time] #casting the time into an int whilst putting it into a new list called time
@@ -74,14 +100,43 @@ sort_cost = [float(x) for x in temp_cost] #casting the cost into a float whilst 
 
 sort_cost.sort() #sort the sort_cost list
 
-threshold = sort_cost.pop(19) #set the threshold to the the sorted cost in the 19th position
+high_threshold = sort_cost.pop(19) #set the high threshold to the sorted cost in the 19th position
+
+low_threshold = sort_cost.pop(4) #set the low threshold to the sorted cost in the 4th position
 
 combined = list(zip(time, cost)) #combine the time and cost lists into a 2D list
 
 sorted_list = sorted(combined) #sort the combined list
 
-#sorted_list(time, cost) = sorted_list(t, c)
-for t, c in sorted_list: #for the t, c in the sorted list
+#####################################################################################################################################
+############################################ Using all the data for the EMS algorithm ###############################################
+#####################################################################################################################################
 
-   if c >= threshold: #if c is greater than or equal to our threshold, then print out the statment
-      print("Threshold of", threshold, " passed at", f'Hour {t}')
+if clouds or rain in zipped.pop(1): # if there are clouds or rain in the forecast
+   
+   print("Not a lot of solar production today") #wont be a lot of solar production
+
+   for t, c in sorted_list: #for the t, c in the sorted list
+
+      if c >= high_threshold: #if c is greater than or equal to our threshold, then print out the statment
+         print("High threshold of", high_threshold, " passed at", f'Hour {t}', "use batteries to power load")
+
+      elif c <= low_threshold:
+         print("Low threshold of", low_threshold, " not passed at", f'Hour {t}', "charge the batteries")
+
+      else:
+         print("Grid is powering house at", f'Hour {t}')
+   
+
+else:
+   
+   for t, c in sorted_list: #for the t, c in the sorted list
+
+      if c >= high_threshold: #if c is greater than or equal to our threshold, then print out the statment
+         print("High threshold of", high_threshold, " passed at", f'Hour {t}', "use batteries to power load")
+
+      elif c <= low_threshold:
+         print("Low threshold of", low_threshold, " not passed at", f'Hour {t}', "charge the batteries")
+
+      else:
+         print("Grid is powering house at", f'Hour {t}')
